@@ -1,0 +1,21 @@
+<button id="downloadBtn">Click Me</button>
+
+<script>
+document.getElementById("downloadBtn").addEventListener("click", async () => {
+    const response = await fetch("./pfp.jpeg");
+    const blob = await response.blob();
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "my-image.png";
+    a.style.display = "none";
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+</script>
